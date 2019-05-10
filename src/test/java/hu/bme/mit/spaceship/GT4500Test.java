@@ -73,10 +73,14 @@ public class GT4500Test {
 
   @Test
   public void fireTorpedo_Single_Secondary_Fail() {
-    when(primaryTorpedoStore.isEmpty()).thenReturn(false);
+    when(primaryTorpedoStore.isEmpty()).thenReturn(true);
     when(secondaryTorpedoStore.isEmpty()).thenReturn(false);
-    when(primaryTorpedoStore.fire(1)).thenReturn(false);
-    when(secondaryTorpedoStore.fire(1)).thenReturn()
+    when(secondaryTorpedoStore.fire(1)).thenReturn(false);
+
+    boolean result = ship.fireTorpedo(FiringMode.SINGLE);
+
+    verify(secondaryTorpedoStore, times(1)).fire(1);
+    assertEquals(false, result);
   }
 
 }
